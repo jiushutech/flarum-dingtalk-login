@@ -1,0 +1,415 @@
+// 钉钉登录按钮样式
+.DingtalkLoginButton {
+  margin-top: 15px;
+
+  &-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #999;
+    font-size: 13px;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    span {
+      padding: 0 15px;
+    }
+  }
+
+  &-button {
+    background: linear-gradient(135deg, #007FFF 0%, #0066CC 100%);
+    border: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:hover {
+      background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 127, 255, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    .Button-icon {
+      margin-right: 0;
+    }
+  }
+
+  &-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+}
+
+// 绑定按钮样式
+.DingtalkBindButton {
+  &-content {
+    margin-top: 10px;
+  }
+
+  &-loading {
+    padding: 20px;
+    text-align: center;
+  }
+
+  // 卡片样式
+  &-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    transition: all 0.2s ease;
+
+    &--bound {
+      border-color: #c8e6c9;
+      background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
+    }
+
+    &--unbound {
+      border-color: #ffe0b2;
+      background: linear-gradient(135deg, #fff8e1 0%, #fff3e0 100%);
+    }
+
+    // 纵向排列样式
+    &--vertical {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 20px;
+      gap: 12px;
+    }
+  }
+
+  &-cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  &-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #007FFF 0%, #0066CC 100%);
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    i {
+      font-size: 24px;
+      color: #fff;
+    }
+
+    &--empty {
+      background: linear-gradient(135deg, #bdbdbd 0%, #9e9e9e 100%);
+    }
+  }
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &-nickname {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &-statusText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #4caf50;
+
+    i {
+      font-size: 12px;
+    }
+
+    &--warning {
+      color: #ff9800;
+    }
+  }
+
+  &-cardActions {
+    margin-top: 4px;
+
+    .Button {
+      border-radius: 8px;
+      font-size: 13px;
+      padding: 8px 20px;
+
+      i {
+        margin-right: 6px;
+      }
+    }
+
+    .Button--small {
+      padding: 6px 14px;
+    }
+  }
+}
+
+// 强制绑定提示
+.DingtalkBindRequired {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+
+  &-modal {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+  }
+
+  &-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #007FFF 0%, #0066CC 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+
+    i {
+      font-size: 36px;
+      color: #fff;
+    }
+  }
+
+  &-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  &-message {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 钉钉设置区块样式（设置页面中的独立区块）
+.DingtalkSettings-section {
+  margin-bottom: 30px;
+
+  .Settings-heading {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .DingtalkBindButton {
+    &-content {
+      margin-top: 0;
+    }
+
+    &-card {
+      max-width: 100%;
+    }
+  }
+}
+
+// 钉钉主页侧边栏卡片样式（Flarum 原生风格）
+.DingtalkIndexCard {
+  background: #fff;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  &-loading {
+    padding: 30px;
+    text-align: center;
+  }
+
+  &-header {
+    padding: 12px 15px;
+    background: var(--control-bg);
+    border-bottom: 1px solid var(--control-bg);
+  }
+
+  &-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted-color);
+  }
+
+  &-content {
+    padding: 15px;
+  }
+
+  &-bound {
+    // 已绑定状态
+  }
+
+  &-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  &-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .Avatar {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+    }
+  }
+
+  &-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &-nickname {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-status {
+    display: flex;
+    align-items: center;
+  }
+
+  &-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+
+    &--bound {
+      background: #e8f5e9;
+      color: #4caf50;
+    }
+
+    i {
+      font-size: 10px;
+    }
+  }
+
+  &-details {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--control-bg);
+    padding-top: 12px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted-color);
+      padding: 4px 0;
+
+      .icon {
+        width: 14px;
+        text-align: center;
+        color: var(--muted-more-color);
+      }
+    }
+  }
+
+  &-unbound {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  &-unboundMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted-color);
+    margin-bottom: 15px;
+
+    i {
+      color: var(--muted-more-color);
+    }
+  }
+}

@@ -1,0 +1,519 @@
+// 钉钉登录后台设置页面样式
+.DingtalkSettingsPage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+
+  &-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e8e8e8;
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0 0 12px 0;
+      line-height: 1.4;
+
+      i {
+        color: #007FFF;
+        font-size: 24px;
+      }
+    }
+
+    &-title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+  }
+
+  &-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  &-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: #f5f7fa;
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  &-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    white-space: nowrap;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+    }
+
+    &.active {
+      background: #fff;
+      color: #007FFF;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    i {
+      font-size: 15px;
+    }
+
+    span {
+      line-height: 1;
+    }
+  }
+
+  &-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #eee;
+  }
+
+  &-sectionHeader {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0 0 8px 0;
+      line-height: 1.4;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+      i {
+        color: #007FFF;
+        font-size: 16px;
+      }
+    }
+
+    &--sub {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #f0f0f0;
+    }
+  }
+
+  &-sectionHelp {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  &-formGrid {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 24px;
+
+    .Form-group {
+      margin: 0;
+    }
+  }
+
+  &-label {
+    display: block;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  &-fieldHelp {
+    margin: 8px 0 0 0;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .FormControl {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    &:focus {
+      border-color: #007FFF;
+      box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #bbb;
+    }
+  }
+
+  // Switch 开关组样式
+  &-switchGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  &-switchItem {
+    padding: 16px;
+    background: #fafbfc;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f5f7fa;
+      border-color: #ddd;
+    }
+
+    .Checkbox--switch {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  &-switchLabel {
+    font-weight: 500;
+    color: #333;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-left: 8px;
+  }
+
+  &-switchHelp {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    color: #888;
+    line-height: 1.5;
+    padding-left: 64px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  // 日志表格样式
+  &-logs {
+    .Table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+      th, td {
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      th {
+        background: #f9fafb;
+        font-weight: 600;
+        color: #333;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      td {
+        font-size: 14px;
+        color: #555;
+      }
+
+      tbody tr {
+        transition: background 0.15s ease;
+
+        &:hover {
+          background: #f9fafb;
+        }
+      }
+    }
+  }
+
+  &-logsToolbar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .Button {
+      border-radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+  }
+
+  &-logsLoading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+  }
+
+  &-logsEmpty {
+    text-align: center;
+    color: #999;
+    padding: 40px 20px !important;
+    font-size: 14px;
+  }
+
+  &-logsTable {
+    overflow-x: auto;
+  }
+
+  &-logType {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &--scan {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    &--h5 {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    &--redirect {
+      background: #fff3e0;
+      color: #f57c00;
+    }
+  }
+
+  &-logStatus {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &--success {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    &--failed {
+      background: #ffebee;
+      color: #c62828;
+    }
+  }
+
+  &-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+  }
+}
+
+// Switch 组件美化
+.DingtalkSettingsPage .Checkbox--switch {
+  display: flex;
+  align-items: center;
+
+  .Checkbox-display {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: #ddd;
+    transition: all 0.25s ease;
+    position: relative;
+    flex-shrink: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      transition: all 0.25s ease;
+    }
+  }
+
+  input:checked + .Checkbox-display {
+    background: linear-gradient(135deg, #007FFF 0%, #0066CC 100%);
+
+    &::before {
+      transform: translateX(20px);
+    }
+  }
+}
+
+// 保存按钮美化
+.DingtalkSettingsPage .Button--primary {
+  background: linear-gradient(135deg, #007FFF 0%, #0066CC 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  &:hover {
+    background: linear-gradient(135deg, #0066CC 0%, #0052A3 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 127, 255, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Select 下拉框美化
+.DingtalkSettingsPage .Select {
+  .Select-input {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    &:focus {
+      border-color: #007FFF;
+      box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+    }
+  }
+}
+
+// 下拉框容器样式修复
+.DingtalkSettingsPage-selectGroup {
+  margin-bottom: 24px;
+  
+  .DingtalkSettingsPage-label {
+    margin-bottom: 8px;
+  }
+}
+
+.DingtalkSettingsPage-selectWrapper {
+  position: relative;
+  
+  .Select {
+    width: 100%;
+    
+    .Dropdown-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        border-color: #bbb;
+      }
+      
+      &:focus {
+        border-color: #007FFF;
+        box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+        outline: none;
+      }
+    }
+    
+    .Dropdown-menu {
+      width: 100%;
+      margin-top: 4px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e0e0e0;
+      
+      li {
+        a {
+          padding: 10px 14px;
+          font-size: 14px;
+          
+          &:hover {
+            background: #f5f7fa;
+          }
+        }
+        
+        &.active a {
+          background: #007FFF;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 768px) {
+  .DingtalkSettingsPage {
+    padding: 16px;
+
+    &-tabs {
+      gap: 4px;
+      padding: 4px;
+    }
+
+    &-tab {
+      padding: 8px 12px;
+      font-size: 13px;
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    &-section {
+      padding: 16px;
+    }
+
+    &-switchHelp {
+      padding-left: 0;
+      margin-top: 10px;
+    }
+
+    &-logs .Table {
+      th, td {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+    }
+  }
+}

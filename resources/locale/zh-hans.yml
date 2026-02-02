@@ -1,0 +1,122 @@
+jiushutech-dingtalk-login:
+  admin:
+    title: 钉钉登录设置
+    description: 配置钉钉登录功能，实现用户通过钉钉账号快速登录论坛。
+
+    tabs:
+      basic: 基础配置
+      login: 登录控制
+      sync: 信息同步
+      logs: 登录日志
+
+    basic:
+      api_config: API 配置
+      api_config_help: 请在钉钉开放平台创建应用并获取以下信息。
+      app_key: 应用 AppKey
+      app_key_placeholder: 请输入 AppKey
+      app_secret: 应用 AppSecret
+      app_secret_placeholder: 请输入 AppSecret
+      agent_id: 应用 AgentId
+      agent_id_placeholder: H5微应用 AgentId（可选）
+      agent_id_help: H5微应用需要填写，用于钉钉内嵌页面免登。
+      corp_id: 企业 CorpId
+      corp_id_placeholder: 请输入企业 CorpId
+      corp_id_help: 企业内部应用需要填写，用于H5免登和企业限制功能。
+      callback_url: 回调地址
+      callback_url_placeholder: 留空自动生成
+      callback_url_help: 留空或填写 auto 将自动生成回调地址。
+
+    login:
+      control: 登录控制
+      force_bind: 强制绑定钉钉账号
+      force_bind_help: 开启后，未绑定钉钉的用户无法正常使用论坛功能。
+      only_dingtalk: 仅允许钉钉登录
+      only_dingtalk_help: 开启后，将禁用原生登录方式，仅保留钉钉登录入口。
+      auto_register: 自动注册新用户
+      auto_register_help: 开启后，未关联账号的钉钉用户登录时将自动创建新账号。
+      enterprise_only: 仅允许指定企业用户
+      enterprise_only_help: 开启后，只有指定企业的钉钉用户才能登录。
+      allowed_corp_ids: 允许的企业 ID
+      allowed_corp_ids_placeholder: 例如：corp1,corp2,corp3
+      allowed_corp_ids_help: 多个企业 ID 用英文逗号分隔。
+      exempt_users: 豁免用户
+      exempt_users_placeholder: 例如：admin,moderator
+      exempt_users_help: 这些用户不受强制绑定和仅钉钉登录限制，多个用户名用英文逗号分隔。
+      enable_h5: 启用 H5 免登
+      enable_h5_help: 开启后，在钉钉客户端内打开论坛时将自动完成登录。
+      show_on_index: 在主页显示钉钉卡片
+      show_on_index_help: 开启后，已登录用户在论坛主页侧边栏会显示钉钉绑定状态卡片。
+
+    sync:
+      title: 信息同步设置
+      nickname: 同步钉钉昵称
+      avatar: 同步钉钉头像
+      mobile: 同步手机号
+      mobile_help: 需要用户授权，手机号将加密存储。
+      email: 同步邮箱
+      email_help: 需要用户授权，邮箱将加密存储。
+      username_rule: 用户名生成规则
+      username_rule_nickname: 使用钉钉昵称
+      username_rule_random: 随机生成
+      log_settings: 日志设置
+      log_retention_days: 日志保留天数
+      log_retention_days_placeholder: 默认 30 天
+      allow_log_export: 允许导出日志
+
+    logs:
+      title: 登录日志
+      refresh: 刷新
+      export: 导出
+      export_failed: 导出失败，请重试
+      time: 时间
+      user: 用户
+      type: 类型
+      status: 状态
+      ip: IP 地址
+      empty: 暂无登录日志
+      type_scan: 扫码登录
+      type_h5: H5 免登
+      type_redirect: 跳转登录
+      status_success: 成功
+      status_failed: 失败
+
+  forum:
+    login:
+      or: 或
+      button: 钉钉扫码登录
+      button_h5: 钉钉快速登录
+
+    settings:
+      title: 钉钉账号
+      dingtalk_account: 钉钉账号
+      bound: 已绑定
+      not_bound: 未绑定
+      bind: 绑定钉钉
+      unbind: 解除绑定
+      bind_hint: 点击下方按钮绑定钉钉账号
+      bind_success: 钉钉账号绑定成功
+      unbind_success: 钉钉账号已解除绑定
+      unbind_confirm: 确定要解除钉钉账号绑定吗？解绑后将无法使用钉钉登录。
+
+    bind_required:
+      title: 请绑定钉钉账号
+      message: 为了继续使用论坛，请先绑定您的钉钉账号。
+      button: 立即绑定
+
+    user_card:
+      title: 钉钉账号
+      bound: 已绑定
+      not_bound: 未绑定钉钉账号
+      bind_now: 立即绑定
+      dingtalk_user: 钉钉用户
+      online_since: "在线时间: "
+
+    badge:
+      title: 已绑定钉钉账号
+
+    errors:
+      auth_cancelled: 授权已取消
+      auth_failed: 授权失败，请重试
+      network_error: 网络连接失败，请重试
+      enterprise_restricted: 您不属于允许登录的企业
+      binding_required: 请先绑定钉钉账号以继续使用

@@ -1,0 +1,122 @@
+jiushutech-dingtalk-login:
+  admin:
+    title: DingTalk Login Settings
+    description: Configure DingTalk login to allow users to sign in with their DingTalk accounts.
+
+    tabs:
+      basic: Basic Settings
+      login: Login Control
+      sync: Info Sync
+      logs: Login Logs
+
+    basic:
+      api_config: API Configuration
+      api_config_help: Create an application on DingTalk Open Platform and obtain the following information.
+      app_key: AppKey
+      app_key_placeholder: Enter AppKey
+      app_secret: AppSecret
+      app_secret_placeholder: Enter AppSecret
+      agent_id: AgentId
+      agent_id_placeholder: H5 Mini-app AgentId (Optional)
+      agent_id_help: Required for H5 mini-app, used for auto-login within DingTalk client.
+      corp_id: Enterprise CorpId
+      corp_id_placeholder: Enter Enterprise CorpId
+      corp_id_help: Required for enterprise internal apps, used for H5 auto-login and enterprise restriction.
+      callback_url: Callback URL
+      callback_url_placeholder: Leave empty to auto-generate
+      callback_url_help: Leave empty or enter "auto" to auto-generate the callback URL.
+
+    login:
+      control: Login Control
+      force_bind: Force DingTalk Binding
+      force_bind_help: When enabled, users without DingTalk binding cannot use the forum.
+      only_dingtalk: DingTalk Login Only
+      only_dingtalk_help: When enabled, native login methods will be disabled, only DingTalk login is available.
+      auto_register: Auto Register New Users
+      auto_register_help: When enabled, new accounts will be created for DingTalk users without linked accounts.
+      enterprise_only: Enterprise Users Only
+      enterprise_only_help: When enabled, only users from specified enterprises can log in.
+      allowed_corp_ids: Allowed Enterprise IDs
+      allowed_corp_ids_placeholder: e.g., corp1,corp2,corp3
+      allowed_corp_ids_help: Separate multiple enterprise IDs with commas.
+      exempt_users: Exempt Users
+      exempt_users_placeholder: e.g., admin,moderator
+      exempt_users_help: These users are exempt from force binding and DingTalk-only restrictions. Separate usernames with commas.
+      enable_h5: Enable H5 Auto-Login
+      enable_h5_help: When enabled, users will be automatically logged in when accessing the forum within DingTalk client.
+      show_on_index: Show DingTalk Card on Index
+      show_on_index_help: When enabled, logged-in users will see a DingTalk binding status card in the forum index sidebar.
+
+    sync:
+      title: Info Sync Settings
+      nickname: Sync DingTalk Nickname
+      avatar: Sync DingTalk Avatar
+      mobile: Sync Mobile Number
+      mobile_help: Requires user authorization. Mobile number will be encrypted.
+      email: Sync Email
+      email_help: Requires user authorization. Email will be encrypted.
+      username_rule: Username Generation Rule
+      username_rule_nickname: Use DingTalk Nickname
+      username_rule_random: Random Generation
+      log_settings: Log Settings
+      log_retention_days: Log Retention Days
+      log_retention_days_placeholder: Default 30 days
+      allow_log_export: Allow Log Export
+
+    logs:
+      title: Login Logs
+      refresh: Refresh
+      export: Export
+      export_failed: Export failed, please try again
+      time: Time
+      user: User
+      type: Type
+      status: Status
+      ip: IP Address
+      empty: No login logs yet
+      type_scan: QR Scan Login
+      type_h5: H5 Auto-Login
+      type_redirect: Redirect Login
+      status_success: Success
+      status_failed: Failed
+
+  forum:
+    login:
+      or: or
+      button: Login with DingTalk
+      button_h5: Quick Login with DingTalk
+
+    settings:
+      title: DingTalk Account
+      dingtalk_account: DingTalk Account
+      bound: Bound
+      not_bound: Not Bound
+      bind: Bind DingTalk
+      unbind: Unbind
+      bind_hint: Click the button below to bind your DingTalk account
+      bind_success: DingTalk account bound successfully
+      unbind_success: DingTalk account unbound successfully
+      unbind_confirm: Are you sure you want to unbind your DingTalk account? You won't be able to use DingTalk login after unbinding.
+
+    bind_required:
+      title: Please Bind DingTalk Account
+      message: To continue using the forum, please bind your DingTalk account first.
+      button: Bind Now
+
+    user_card:
+      title: DingTalk Account
+      bound: Bound
+      not_bound: DingTalk account not bound
+      bind_now: Bind Now
+      dingtalk_user: DingTalk User
+      online_since: "Online since: "
+
+    badge:
+      title: DingTalk account bound
+
+    errors:
+      auth_cancelled: Authorization cancelled
+      auth_failed: Authorization failed, please try again
+      network_error: Network connection failed, please try again
+      enterprise_restricted: You are not from an allowed enterprise
+      binding_required: Please bind your DingTalk account to continue

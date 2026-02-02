@@ -1,0 +1,65 @@
+{
+    "name": "jiushutech/flarum-dingtalk-login",
+    "description": "DingTalk (钉钉) login integration for Flarum",
+    "version": "1.0.0",
+    "keywords": [
+        "flarum",
+        "dingtalk",
+        "login",
+        "oauth",
+        "sso",
+        "authentication"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JiushuTech",
+            "email": "dev@jiushutech.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/jiushutech/flarum-dingtalk-login/issues",
+        "source": "https://github.com/jiushutech/flarum-dingtalk-login"
+    },
+    "require": {
+        "flarum/core": "^1.8.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JiushuTech\\DingtalkLogin\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "DingTalk Login",
+            "category": "authentication",
+            "icon": {
+                "name": "fas fa-comment-dots",
+                "backgroundColor": "#007FFF",
+                "color": "#fff"
+            }
+        },
+        "flarum-cli": {
+            "modules": {
+                "admin": true,
+                "forum": true,
+                "js": true,
+                "jsCommon": false,
+                "css": true,
+                "locale": true,
+                "gitConf": true,
+                "githubActions": false,
+                "prettier": true,
+                "typescript": true,
+                "bundlewatch": false,
+                "backendTesting": false,
+                "editorConfig": true,
+                "styleci": false
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
