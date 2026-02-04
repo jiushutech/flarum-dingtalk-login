@@ -14,6 +14,7 @@ namespace JiushuTech\DingtalkLogin\Api\Controller;
 use Flarum\Http\RequestUtil;
 use Flarum\Http\SessionAccessToken;
 use Flarum\Http\SessionAuthenticator;
+use Flarum\Locale\Translator;
 use Illuminate\Contracts\Events\Dispatcher;
 use JiushuTech\DingtalkLogin\Event\DingtalkLoginSucceeded;
 use JiushuTech\DingtalkLogin\Model\DingtalkLoginLog;
@@ -30,17 +31,20 @@ class DingtalkH5LoginController implements RequestHandlerInterface
     protected DingtalkUserService $userService;
     protected SessionAuthenticator $authenticator;
     protected Dispatcher $events;
+    protected Translator $translator;
 
     public function __construct(
         DingtalkApiClient $apiClient,
         DingtalkUserService $userService,
         SessionAuthenticator $authenticator,
-        Dispatcher $events
+        Dispatcher $events,
+        Translator $translator
     ) {
         $this->apiClient = $apiClient;
         $this->userService = $userService;
         $this->authenticator = $authenticator;
         $this->events = $events;
+        $this->translator = $translator;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -130,7 +134,7 @@ class DingtalkH5LoginController implements RequestHandlerInterface
             );
             return new JsonResponse([
                 'success' => false,
-                'message' => '登录失败：' . $e->getMessage(),
+                'message' => $this->translator->trans('jiushutech-dingtalk-login.api.login_failed') . '：' . $e->getMessage(),
             ], 500);
         }
     }

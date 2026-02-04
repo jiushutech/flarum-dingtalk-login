@@ -26,11 +26,13 @@
 - 🚫 **仅钉钉登录** - 禁用原生登录，仅允许钉钉登录
 - 🏢 **企业专属登录** - 仅允许指定企业的用户登录
 - 🛡️ **管理员豁免** - 指定用户可绕过登录限制
+- 🔘 **显示登录按钮开关** - 可控制是否在登录页面显示钉钉登录按钮
 
 #### 增强功能
 - 📊 **登录日志** - 记录所有登录行为，支持查询和导出
 - 🔄 **信息同步** - 同步钉钉昵称、头像
 - 🌐 **多语言支持** - 支持中文和英文
+- 💬 **友好错误提示** - H5登录失败时显示弹窗提示
 
 ### 📋 环境要求
 
@@ -55,7 +57,24 @@ composer require jiushutech/flarum-dingtalk-login
 3. 获取 **AppKey** 和 **AppSecret**
 4. 如需 H5 免登功能，还需获取 **AgentId** 和 **CorpId**
 
-#### 2. 配置应用权限
+#### 2. 获取 CorpId
+
+CorpId（企业ID）可以通过以下方式获取：
+
+**方法一：钉钉开放平台获取**
+1. 登录 [钉钉开放平台](https://open.dingtalk.com/)
+2. 点击右上角头像，选择「开发者后台」
+3. 在左侧菜单选择「应用开发」→「企业内部开发」
+4. 选择你的应用，在应用详情页面可以看到 **CorpId**
+
+**方法二：钉钉管理后台获取**
+1. 登录 [钉钉管理后台](https://oa.dingtalk.com/)
+2. 点击左下角「设置」
+3. 在「企业信息」页面可以看到 **企业CorpId**
+
+> Corp ID 格式通常为 `dingxxxxxxxxxxxxxxxx`
+
+#### 3. 配置应用权限
 
 在钉钉开放平台的应用管理中，需要添加以下权限：
 
@@ -69,7 +88,7 @@ composer require jiushutech/flarum-dingtalk-login
 
 > ⚠️ **重要提示**：如果遇到 `Forbidden.AccessDenied.AccessTokenPermissionDenied` 错误，说明应用缺少必要的权限配置。
 
-#### 3. 配置回调地址
+#### 4. 配置回调地址
 
 在钉钉开放平台配置回调地址：
 
@@ -77,7 +96,7 @@ composer require jiushutech/flarum-dingtalk-login
 https://你的论坛域名/auth/dingtalk/callback
 ```
 
-#### 4. 后台配置
+#### 5. 后台配置
 
 在 Flarum 后台 → 扩展 → 钉钉登录 中配置：
 
@@ -86,7 +105,7 @@ https://你的论坛域名/auth/dingtalk/callback
 | AppKey | 钉钉应用的 AppKey |
 | AppSecret | 钉钉应用的 AppSecret |
 | AgentId | H5 微应用的 AgentId（可选） |
-| CorpId | 企业 CorpId（可选） |
+| CorpId | 企业 CorpId（H5免登必需） |
 
 ### 📖 使用说明
 
@@ -103,6 +122,7 @@ https://你的论坛域名/auth/dingtalk/callback
 2. 插件自动检测钉钉环境
 3. 调用钉钉 JSAPI 获取免登授权码
 4. 自动完成登录
+5. 如果登录失败，会显示友好的弹窗错误提示
 
 #### 账号绑定
 
@@ -111,6 +131,12 @@ https://你的论坛域名/auth/dingtalk/callback
 3. 完成钉钉授权后绑定成功
 
 ### 🔧 高级配置
+
+#### 显示钉钉登录按钮
+
+在后台「登录控制」标签页中可以控制是否在登录和注册页面显示钉钉登录按钮：
+- **开启**（默认）：显示钉钉一键登录按钮
+- **关闭**：隐藏钉钉登录按钮（但在钉钉客户端内仍会显示）
 
 #### 强制绑定模式
 
@@ -135,11 +161,29 @@ https://你的论坛域名/auth/dingtalk/callback
 - 需要配置允许的企业 CorpId 列表
 - 非指定企业用户将被拒绝登录
 
+#### 自动注册
+
+- **开启**（默认）：未关联账号的钉钉用户登录时将自动创建新账号
+- **关闭**：用户需要先注册或登录原始账号，然后绑定钉钉账号
+
 ### 🔒 安全说明
 
 - OAuth 流程使用 state 参数防止 CSRF 攻击
 - 后台接口验证管理员权限
 - 所有与钉钉 API 的通信使用 HTTPS
+
+### 📝 更新日志
+
+#### v1.0.1 (2026-02-05)
+- ✨ 新增「显示钉钉登录按钮」开关，可控制登录页面是否显示钉钉登录按钮
+- 🐛 修复插件初始化失败的问题
+- 🐛 修复钉钉环境检测和H5自动登录问题
+- 🎨 更新钉钉官方图标
+- 💬 H5登录失败时显示友好的弹窗错误提示
+- 🌐 后端错误消息国际化，支持中英文
+
+#### v1.0.0 (2026-02-02)
+- 🎉 首次发布
 
 ### 🛠️ 开发
 
@@ -177,11 +221,13 @@ A full-featured DingTalk login extension for Flarum, supporting PC QR code login
 - 🚫 **DingTalk Only** - Disable native login, only allow DingTalk login
 - 🏢 **Enterprise Only** - Only allow users from specified enterprises
 - 🛡️ **Admin Exemption** - Specified users can bypass login restrictions
+- 🔘 **Show Login Button Toggle** - Control whether to show DingTalk login button on login page
 
 #### Enhanced Features
 - 📊 **Login Logs** - Record all login activities with export support
 - 🔄 **Info Sync** - Sync DingTalk nickname and avatar
 - 🌐 **Multi-language** - Support Chinese and English
+- 💬 **Friendly Error Messages** - Show popup alerts when H5 login fails
 
 ### 📋 Requirements
 
@@ -206,7 +252,24 @@ Then enable the extension in Flarum admin panel.
 3. Get **AppKey** and **AppSecret**
 4. For H5 auto-login, also get **AgentId** and **CorpId**
 
-#### 2. Configure Permissions
+#### 2. Get CorpId
+
+CorpId (Enterprise ID) can be obtained through:
+
+**Method 1: DingTalk Open Platform**
+1. Login to [DingTalk Open Platform](https://open.dingtalk.com/)
+2. Click avatar → Developer Console
+3. Go to App Development → Internal Enterprise Development
+4. Select your app to see **CorpId**
+
+**Method 2: DingTalk Admin Console**
+1. Login to [DingTalk Admin Console](https://oa.dingtalk.com/)
+2. Click Settings at bottom left
+3. View **Enterprise CorpId** in Enterprise Info page
+
+> Corp ID format is usually `dingxxxxxxxxxxxxxxxx`
+
+#### 3. Configure Permissions
 
 Add the following permissions in DingTalk Open Platform:
 
@@ -220,7 +283,7 @@ Add the following permissions in DingTalk Open Platform:
 
 > ⚠️ **Important**: If you encounter `Forbidden.AccessDenied.AccessTokenPermissionDenied` error, it means the app lacks necessary permissions.
 
-#### 3. Configure Callback URL
+#### 4. Configure Callback URL
 
 Configure callback URL in DingTalk Open Platform:
 
@@ -228,7 +291,7 @@ Configure callback URL in DingTalk Open Platform:
 https://your-forum-domain/auth/dingtalk/callback
 ```
 
-#### 4. Admin Configuration
+#### 5. Admin Configuration
 
 Configure in Flarum Admin → Extensions → DingTalk Login:
 
@@ -237,7 +300,7 @@ Configure in Flarum Admin → Extensions → DingTalk Login:
 | AppKey | DingTalk app AppKey |
 | AppSecret | DingTalk app AppSecret |
 | AgentId | H5 mini-app AgentId (optional) |
-| CorpId | Enterprise CorpId (optional) |
+| CorpId | Enterprise CorpId (required for H5 auto-login) |
 
 ### 📖 Usage
 
@@ -254,6 +317,7 @@ Configure in Flarum Admin → Extensions → DingTalk Login:
 2. Plugin auto-detects DingTalk environment
 3. Calls DingTalk JSAPI to get auth code
 4. Auto complete login
+5. If login fails, a friendly popup error message will be shown
 
 #### Account Binding
 
@@ -262,6 +326,12 @@ Configure in Flarum Admin → Extensions → DingTalk Login:
 3. Complete DingTalk authorization to bind
 
 ### 🔧 Advanced Configuration
+
+#### Show DingTalk Login Button
+
+In the "Login Control" tab, you can control whether to show the DingTalk login button on login and signup pages:
+- **Enabled** (default): Show DingTalk quick login button
+- **Disabled**: Hide DingTalk login button (but still shows within DingTalk client)
 
 #### Force Binding Mode
 
@@ -286,11 +356,29 @@ When enabled:
 - Need to configure allowed enterprise CorpId list
 - Users from other enterprises will be rejected
 
+#### Auto Registration
+
+- **Enabled** (default): New accounts will be created for DingTalk users without linked accounts
+- **Disabled**: Users need to register or login with original account first, then bind DingTalk account
+
 ### 🔒 Security
 
 - OAuth flow uses state parameter to prevent CSRF attacks
 - Admin API endpoints verify administrator permissions
 - All DingTalk API communications use HTTPS
+
+### 📝 Changelog
+
+#### v1.0.1 (2026-02-05)
+- ✨ Added "Show DingTalk Login Button" toggle to control login button visibility
+- 🐛 Fixed plugin initialization failure issue
+- 🐛 Fixed DingTalk environment detection and H5 auto-login issues
+- 🎨 Updated DingTalk official icon
+- 💬 Show friendly popup error messages when H5 login fails
+- 🌐 Backend error messages internationalization, support Chinese and English
+
+#### v1.0.0 (2026-02-02)
+- 🎉 Initial release
 
 ### 🛠️ Development
 

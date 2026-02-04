@@ -28,6 +28,8 @@ jiushutech-dingtalk-login:
 
     login:
       control: Login Control
+      show_login_button: Show DingTalk Login Button
+      show_login_button_help: When enabled, the DingTalk quick login button will be displayed in login and signup modals.
       force_bind: Force DingTalk Binding
       force_bind_help: When enabled, users without DingTalk binding cannot use the forum.
       only_dingtalk: DingTalk Login Only
@@ -120,3 +122,11 @@ jiushutech-dingtalk-login:
       network_error: Network connection failed, please try again
       enterprise_restricted: You are not from an allowed enterprise
       binding_required: Please bind your DingTalk account to continue
+
+  api:
+    auto_register_disabled: Auto registration is disabled. Please register or login with your original account first, then bind your DingTalk account.
+    already_bound: This account is already bound to a DingTalk account.
+    dingtalk_already_bound: This DingTalk account is already bound to another user.
+    not_bound: This account is not bound to any DingTalk account.
+    missing_union_id: Missing DingTalk user information.
+    login_failed: Login failed

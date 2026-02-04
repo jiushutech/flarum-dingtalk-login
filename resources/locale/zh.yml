@@ -28,6 +28,8 @@ jiushutech-dingtalk-login:
 
     login:
       control: 登录控制
+      show_login_button: 显示钉钉登录按钮
+      show_login_button_help: 开启后，在登录和注册弹窗中显示钉钉一键登录按钮。
       force_bind: 强制绑定钉钉账号
       force_bind_help: 开启后，未绑定钉钉的用户无法正常使用论坛功能。
       only_dingtalk: 仅允许钉钉登录
@@ -120,3 +122,11 @@ jiushutech-dingtalk-login:
       network_error: 网络连接失败，请重试
       enterprise_restricted: 您不属于允许登录的企业
       binding_required: 请先绑定钉钉账号以继续使用
+
+  api:
+    auto_register_disabled: 自动注册已禁用，请先注册或登录您原始账号，并绑定您的钉钉账号。
+    already_bound: 此账号已绑定钉钉账号。
+    dingtalk_already_bound: 此钉钉账号已绑定其他用户。
+    not_bound: 此账号未绑定钉钉账号。
+    missing_union_id: 钉钉用户信息缺失。
+    login_failed: 登录失败

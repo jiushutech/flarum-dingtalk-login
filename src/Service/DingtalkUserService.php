@@ -15,6 +15,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
 use Flarum\User\UserRepository;
 use Flarum\User\Event\Registered;
+use Flarum\Locale\Translator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Str;
 use JiushuTech\DingtalkLogin\Model\DingtalkUser;
@@ -27,17 +28,20 @@ class DingtalkUserService
     protected UserRepository $users;
     protected Dispatcher $events;
     protected DingtalkApiClient $apiClient;
+    protected Translator $translator;
 
     public function __construct(
         SettingsRepositoryInterface $settings,
         UserRepository $users,
         Dispatcher $events,
-        DingtalkApiClient $apiClient
+        DingtalkApiClient $apiClient,
+        Translator $translator
     ) {
         $this->settings = $settings;
         $this->users = $users;
         $this->events = $events;
         $this->apiClient = $apiClient;
+        $this->translator = $translator;
     }
 
     /**
@@ -48,7 +52,7 @@ class DingtalkUserService
         $unionId = $dingtalkUserInfo['unionId'] ?? $dingtalkUserInfo['unionid'] ?? null;
         
         if (!$unionId) {
-            throw new \RuntimeException('Missing unionId in DingTalk user info');
+            throw new \RuntimeException($this->translator->trans('jiushutech-dingtalk-login.api.missing_union_id'));
         }
 
         // 先查找是否已绑定
@@ -70,7 +74,7 @@ class DingtalkUserService
                         ($autoRegisterSetting === null); // 默认启用
         
         if (!$autoRegister) {
-            throw new \RuntimeException('Auto registration is disabled. Please bind your DingTalk account first.');
+            throw new \RuntimeException($this->translator->trans('jiushutech-dingtalk-login.api.auto_register_disabled'));
         }
 
         // 创建新用户
@@ -169,11 +173,11 @@ class DingtalkUserService
 
         // 检查是否已绑定其他账号
         if (DingtalkUser::isUserBound($user->id)) {
-            throw new \RuntimeException('This account is already bound to a DingTalk account.');
+            throw new \RuntimeException($this->translator->trans('jiushutech-dingtalk-login.api.already_bound'));
         }
 
         if (DingtalkUser::isDingtalkBound($unionId)) {
-            throw new \RuntimeException('This DingTalk account is already bound to another user.');
+            throw new \RuntimeException($this->translator->trans('jiushutech-dingtalk-login.api.dingtalk_already_bound'));
         }
 
         $dingtalkUser = new DingtalkUser([
@@ -205,7 +209,7 @@ class DingtalkUserService
         $dingtalkUser = DingtalkUser::findByUserId($user->id);
         
         if (!$dingtalkUser) {
-            throw new \RuntimeException('This account is not bound to any DingTalk account.');
+            throw new \RuntimeException($this->translator->trans('jiushutech-dingtalk-login.api.not_bound'));
         }
 
         $this->events->dispatch(new DingtalkUserUnlinked($user, $dingtalkUser));

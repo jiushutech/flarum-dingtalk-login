@@ -11,6 +11,12 @@ import DingtalkH5Auth from './src/forum/components/DingtalkH5Auth';
 import DingtalkBindRequiredModal from './src/forum/components/DingtalkBindRequiredModal';
 import DingtalkIndexCard from './src/forum/components/DingtalkIndexCard';
 
+// 检测是否在钉钉环境中
+function isDingtalkEnvironment(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return /DingTalk/i.test(navigator.userAgent);
+}
+
 // 检查用户是否需要绑定钉钉
 async function checkDingtalkBindingRequired() {
   // 未登录用户不检查
@@ -47,102 +53,161 @@ async function checkDingtalkBindingRequired() {
   }
 }
 
-app.initializers.add('jiushutech-dingtalk-login', () => {
-  // 检测是否在钉钉环境中
-  const isDingtalkEnv = /DingTalk/i.test(navigator.userAgent);
-  
-  // 如果在钉钉环境中且启用了H5登录，自动触发H5登录
-  if (isDingtalkEnv && app.forum.attribute('dingtalkH5Enabled') && !app.session.user) {
-    DingtalkH5Auth.autoLogin();
+// 初始化H5自动登录
+function initH5AutoLogin() {
+  try {
+    const isDingtalkEnv = isDingtalkEnvironment();
+    
+    // 如果在钉钉环境中且启用了H5登录，自动触发H5登录
+    if (isDingtalkEnv && app.forum.attribute('dingtalkH5Enabled') && !app.session.user) {
+      console.log('[DingTalk Login] 检测到钉钉环境，尝试H5自动登录');
+      DingtalkH5Auth.autoLogin();
+    }
+  } catch (error) {
+    console.error('[DingTalk Login] H5自动登录初始化失败:', error);
   }
+}
 
-  // 页面加载完成后检查是否需要强制绑定
+// 初始化强制绑定检查
+function initForceBindCheck() {
   setTimeout(() => {
-    checkDingtalkBindingRequired();
+    try {
+      checkDingtalkBindingRequired();
+    } catch (error) {
+      console.error('[DingTalk Login] 强制绑定检查失败:', error);
+    }
   }, 500);
+}
 
-  // 在登录弹窗中添加钉钉登录按钮
-  extend(LogInModal.prototype, 'fields', function (items: ItemList<any>) {
-    if (!app.forum.attribute('dingtalkLoginEnabled')) {
-      return;
+app.initializers.add('jiushutech-dingtalk-login', () => {
+  try {
+    // 使用 document.addEventListener 确保在 DOM 加载完成后执行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initH5AutoLogin();
+        initForceBindCheck();
+      });
+    } else {
+      // DOM 已经加载完成
+      initH5AutoLogin();
+      initForceBindCheck();
     }
 
-    // 如果仅允许钉钉登录，隐藏其他登录方式
-    if (app.forum.attribute('dingtalkOnlyLogin') === true) {
-      items.remove('identification');
-      items.remove('password');
-      items.remove('remember');
-      items.remove('submit');
-    }
+    // 在登录弹窗中添加钉钉登录按钮
+    extend(LogInModal.prototype, 'fields', function (items: ItemList<any>) {
+      // 检查是否显示钉钉登录按钮
+      const showLoginButton = app.forum.attribute('dingtalkShowLoginButton');
+      const dingtalkLoginEnabled = app.forum.attribute('dingtalkLoginEnabled');
+      const isDingtalkEnv = isDingtalkEnvironment();
+      
+      console.log('[DingTalk Login] showLoginButton:', showLoginButton, 'dingtalkLoginEnabled:', dingtalkLoginEnabled, 'isDingtalkEnv:', isDingtalkEnv);
+      
+      // 如果明确禁用了登录按钮显示，则不显示（除非在钉钉环境中）
+      if (showLoginButton === false || showLoginButton === '0') {
+        if (!isDingtalkEnv) {
+          console.log('[DingTalk Login] 登录按钮已禁用，不显示');
+          return;
+        }
+      }
+      
+      // 如果钉钉登录未启用且不在钉钉环境中，则不显示
+      if (!dingtalkLoginEnabled && !isDingtalkEnv) {
+        console.log('[DingTalk Login] 钉钉登录未启用，不显示');
+        return;
+      }
 
-    items.add(
-      'dingtalk-login',
-      m(DingtalkLoginButton),
-      -10
-    );
-  });
+      // 如果仅允许钉钉登录，隐藏其他登录方式
+      if (app.forum.attribute('dingtalkOnlyLogin') === true) {
+        items.remove('identification');
+        items.remove('password');
+        items.remove('remember');
+        items.remove('submit');
+      }
 
-  // 在注册弹窗中添加钉钉登录按钮
-  extend(SignUpModal.prototype, 'fields', function (items: ItemList<any>) {
-    if (!app.forum.attribute('dingtalkLoginEnabled')) {
-      return;
-    }
+      items.add(
+        'dingtalk-login',
+        m(DingtalkLoginButton),
+        -10
+      );
+    });
 
-    // 如果仅允许钉钉登录，隐藏其他注册方式
-    if (app.forum.attribute('dingtalkOnlyLogin') === true) {
-      items.remove('username');
-      items.remove('email');
-      items.remove('password');
-      items.remove('submit');
-    }
+    // 在注册弹窗中添加钉钉登录按钮
+    extend(SignUpModal.prototype, 'fields', function (items: ItemList<any>) {
+      // 检查是否显示钉钉登录按钮
+      const showLoginButton = app.forum.attribute('dingtalkShowLoginButton');
+      const dingtalkLoginEnabled = app.forum.attribute('dingtalkLoginEnabled');
+      const isDingtalkEnv = isDingtalkEnvironment();
+      
+      // 如果明确禁用了登录按钮显示，则不显示（除非在钉钉环境中）
+      if (showLoginButton === false || showLoginButton === '0') {
+        if (!isDingtalkEnv) {
+          return;
+        }
+      }
+      
+      // 如果钉钉登录未启用且不在钉钉环境中，则不显示
+      if (!dingtalkLoginEnabled && !isDingtalkEnv) {
+        return;
+      }
 
-    items.add(
-      'dingtalk-login',
-      m(DingtalkLoginButton),
-      -10
-    );
-  });
+      // 如果仅允许钉钉登录，隐藏其他注册方式
+      if (app.forum.attribute('dingtalkOnlyLogin') === true) {
+        items.remove('username');
+        items.remove('email');
+        items.remove('password');
+        items.remove('submit');
+      }
 
-  // 在用户设置页面添加钉钉绑定选项（放在通知中心上面，纵向排列）
-  extend(SettingsPage.prototype, 'settingsItems', function (items: ItemList<any>) {
-    if (!app.forum.attribute('dingtalkLoginEnabled')) {
-      return;
-    }
+      items.add(
+        'dingtalk-login',
+        m(DingtalkLoginButton),
+        -10
+      );
+    });
 
-    // 创建钉钉账号绑定区块
-    const dingtalkSection = m('div.Settings-section.DingtalkSettings-section', [
-      m('h3.Settings-heading', app.translator.trans('jiushutech-dingtalk-login.forum.settings.title')),
-      m(DingtalkBindButton)
-    ]);
+    // 在用户设置页面添加钉钉绑定选项（放在通知中心上面，纵向排列）
+    extend(SettingsPage.prototype, 'settingsItems', function (items: ItemList<any>) {
+      if (!app.forum.attribute('dingtalkLoginEnabled')) {
+        return;
+      }
 
-    // 优先级设置为 80，使其在通知中心（优先级 70）上面
-    items.add(
-      'dingtalk-bind',
-      dingtalkSection,
-      80
-    );
-  });
+      // 创建钉钉账号绑定区块
+      const dingtalkSection = m('div.Settings-section.DingtalkSettings-section', [
+        m('h3.Settings-heading', app.translator.trans('jiushutech-dingtalk-login.forum.settings.title')),
+        m(DingtalkBindButton)
+      ]);
 
-  // 在论坛主页侧边栏显示钉钉信息卡片（可通过后台开关控制）
-  extend(IndexPage.prototype, 'sidebarItems', function (items: ItemList<any>) {
-    if (!app.forum.attribute('dingtalkLoginEnabled')) {
-      return;
-    }
+      // 优先级设置为 80，使其在通知中心（优先级 70）上面
+      items.add(
+        'dingtalk-bind',
+        dingtalkSection,
+        80
+      );
+    });
 
-    // 检查后台是否启用主页显示
-    if (!app.forum.attribute('dingtalkShowOnIndex')) {
-      return;
-    }
+    // 在论坛主页侧边栏显示钉钉信息卡片（可通过后台开关控制）
+    extend(IndexPage.prototype, 'sidebarItems', function (items: ItemList<any>) {
+      if (!app.forum.attribute('dingtalkLoginEnabled')) {
+        return;
+      }
 
-    // 只有已登录用户才显示
-    if (!app.session.user) {
-      return;
-    }
+      // 检查后台是否启用主页显示
+      if (!app.forum.attribute('dingtalkShowOnIndex')) {
+        return;
+      }
 
-    items.add(
-      'dingtalk-card',
-      m(DingtalkIndexCard, { user: app.session.user }),
-      -10
-    );
-  });
+      // 只有已登录用户才显示
+      if (!app.session.user) {
+        return;
+      }
+
+      items.add(
+        'dingtalk-card',
+        m(DingtalkIndexCard, { user: app.session.user }),
+        -10
+      );
+    });
+  } catch (error) {
+    console.error('[DingTalk Login] 插件初始化失败:', error);
+  }
 });

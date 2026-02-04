@@ -98,8 +98,16 @@ return [
         ->default('jiushutech-dingtalk-login.allow_log_export', true)
         ->default('jiushutech-dingtalk-login.enable_h5_login', true)
         ->default('jiushutech-dingtalk-login.show_on_index', false)
+        ->default('jiushutech-dingtalk-login.show_login_button', true)
         ->serializeToForum('dingtalkLoginEnabled', 'jiushutech-dingtalk-login.app_key', function ($value) {
             return !empty($value);
+        })
+        ->serializeToForum('dingtalkShowLoginButton', 'jiushutech-dingtalk-login.show_login_button', function ($value) {
+            // 当值为 '0' 时返回 false，其他情况（包括 null、'1'、true）返回 true
+            if ($value === '0' || $value === false) {
+                return false;
+            }
+            return true;
         })
         ->serializeToForum('dingtalkOnlyLogin', 'jiushutech-dingtalk-login.only_dingtalk_login', function ($value) {
             return $value === '1' || $value === true;
