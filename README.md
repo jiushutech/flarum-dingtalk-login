@@ -174,7 +174,7 @@ https://你的论坛域名/auth/dingtalk/callback
 
 ### 📝 更新日志
 
-#### v1.0.1 (2026-02-05)
+#### v1.2.0 (2026-02-05)
 - ✨ 新增「显示钉钉登录按钮」开关，可控制登录页面是否显示钉钉登录按钮
 - 🐛 修复插件初始化失败的问题
 - 🐛 修复钉钉环境检测和H5自动登录问题
@@ -369,7 +369,7 @@ When enabled:
 
 ### 📝 Changelog
 
-#### v1.0.1 (2026-02-05)
+#### v1.2.0 (2026-02-05)
 - ✨ Added "Show DingTalk Login Button" toggle to control login button visibility
 - 🐛 Fixed plugin initialization failure issue
 - 🐛 Fixed DingTalk environment detection and H5 auto-login issues
