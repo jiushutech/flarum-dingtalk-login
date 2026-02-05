@@ -12,10 +12,12 @@
 use Flarum\Extend;
 use Flarum\User\User;
 use Flarum\Api\Serializer\CurrentUserSerializer;
+use Flarum\Api\Serializer\UserSerializer;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkAuthController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkCallbackController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkBindController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkBindStatusController;
+use JiushuTech\DingtalkLogin\Api\Controller\DingtalkBindStatsController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkUnbindController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkH5LoginController;
 use JiushuTech\DingtalkLogin\Api\Controller\DingtalkLoginLogController;
@@ -51,6 +53,7 @@ return [
     // 注册API路由
     (new Extend\Routes('api'))
         ->get('/dingtalk/bind-status', 'dingtalk.bind-status', DingtalkBindStatusController::class)
+        ->get('/dingtalk/bind-stats', 'dingtalk.bind-stats', DingtalkBindStatsController::class)
         ->post('/dingtalk/bind', 'dingtalk.bind', DingtalkBindController::class)
         ->delete('/dingtalk/unbind', 'dingtalk.unbind', DingtalkUnbindController::class)
         ->post('/dingtalk/h5-login', 'dingtalk.h5login', DingtalkH5LoginController::class)
@@ -83,6 +86,16 @@ return [
             return $dingtalkUser !== null;
         }),
 
+    // 为管理员添加用户钉钉绑定状态属性
+    (new Extend\ApiSerializer(UserSerializer::class))
+        ->attribute('dingtalkBound', function (UserSerializer $serializer, User $user) {
+            // 只有管理员可以查看其他用户的钉钉绑定状态
+            if (!$serializer->getActor()->isAdmin()) {
+                return null;
+            }
+            return DingtalkUser::isUserBound($user->id);
+        }),
+
     // 注册设置
     (new Extend\Settings())
         ->default('jiushutech-dingtalk-login.force_bind', false)
@@ -99,6 +112,7 @@ return [
         ->default('jiushutech-dingtalk-login.enable_h5_login', true)
         ->default('jiushutech-dingtalk-login.show_on_index', false)
         ->default('jiushutech-dingtalk-login.show_login_button', true)
+        ->default('jiushutech-dingtalk-login.show_bind_stats', true)
         ->serializeToForum('dingtalkLoginEnabled', 'jiushutech-dingtalk-login.app_key', function ($value) {
             return !empty($value);
         })

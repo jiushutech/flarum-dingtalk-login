@@ -48,6 +48,8 @@ jiushutech-dingtalk-login:
       enable_h5_help: 开启后，在钉钉客户端内打开论坛时将自动完成登录。
       show_on_index: 在主页显示钉钉卡片
       show_on_index_help: 开启后，已登录用户在论坛主页侧边栏会显示钉钉绑定状态卡片。
+      show_bind_stats: 在用户管理中显示钉钉绑定统计
+      show_bind_stats_help: 开启后，在后台用户管理页面显示钉钉绑定进度和用户绑定状态。
 
     sync:
       title: 信息同步设置
@@ -81,6 +83,12 @@ jiushutech-dingtalk-login:
       type_redirect: 跳转登录
       status_success: 成功
       status_failed: 失败
+
+    users:
+      bind_progress: "钉钉绑定进度："
+      dingtalk_column: 钉钉
+      bound: 已绑定钉钉
+      not_bound: 未绑定钉钉
 
   forum:
     login:

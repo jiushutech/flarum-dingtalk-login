@@ -272,6 +272,20 @@ export default class DingtalkSettingsPage extends ExtensionPage {
               {app.translator.trans('jiushutech-dingtalk-login.admin.login.show_on_index_help')}
             </p>
           </div>
+
+          <div className="DingtalkSettingsPage-switchItem">
+            <Switch
+              state={this.setting('jiushutech-dingtalk-login.show_bind_stats')() !== '0'}
+              onchange={(value: boolean) => this.setting('jiushutech-dingtalk-login.show_bind_stats')(value ? '1' : '0')}
+            >
+              <span className="DingtalkSettingsPage-switchLabel">
+                {app.translator.trans('jiushutech-dingtalk-login.admin.login.show_bind_stats')}
+              </span>
+            </Switch>
+            <p className="DingtalkSettingsPage-switchHelp">
+              {app.translator.trans('jiushutech-dingtalk-login.admin.login.show_bind_stats_help')}
+            </p>
+          </div>
         </div>
 
         {this.submitButton()}

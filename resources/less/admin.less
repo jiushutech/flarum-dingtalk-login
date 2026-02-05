@@ -517,3 +517,107 @@
     }
   }
 }
+
+// 钉钉绑定统计标题包装器
+.DingtalkBindStats-titleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  
+  h2 {
+    margin: 0;
+  }
+}
+
+// 钉钉绑定统计样式
+.DingtalkBindStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1565c0;
+  vertical-align: middle;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  float: right;
+  margin-bottom: 10px;
+
+  &-icon {
+    display: inline-flex;
+    align-items: center;
+    color: #0089FF;
+    
+    i {
+      font-size: 14px;
+    }
+  }
+
+  &-label {
+    color: #666;
+    font-weight: 400;
+  }
+
+  &-value {
+    color: #1565c0;
+    font-weight: 600;
+  }
+
+  &-percentage {
+    background: #0089FF;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+}
+
+// 钉钉绑定状态图标样式
+.DingtalkBoundIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &--bound {
+    .DingtalkLogo {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.2s ease;
+      display: block;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &--unbound {
+    // 未绑定不显示任何内容
+  }
+}
+
+// 用户列表页面钉钉列样式
+.UserListPage {
+  // 钉钉绑定统计在header中的位置
+  .UserListPage-header {
+    .DingtalkBindStats {
+      margin-left: 16px;
+    }
+  }
+  
+  // 表格中钉钉列的样式
+  .UserListPage-grid {
+    .UserListPage-grid-header,
+    .UserListPage-grid-row {
+      // 钉钉列居中显示
+      > div:last-child {
+        text-align: center;
+        min-width: 60px;
+      }
+    }
+  }
+}

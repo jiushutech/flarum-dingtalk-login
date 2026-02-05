@@ -48,6 +48,8 @@ jiushutech-dingtalk-login:
       enable_h5_help: When enabled, users will be automatically logged in when accessing the forum within DingTalk client.
       show_on_index: Show DingTalk Card on Index
       show_on_index_help: When enabled, logged-in users will see a DingTalk binding status card in the forum index sidebar.
+      show_bind_stats: Show DingTalk Binding Stats in User Management
+      show_bind_stats_help: When enabled, DingTalk binding progress and user binding status will be displayed in the admin user management page.
 
     sync:
       title: Info Sync Settings
@@ -81,6 +83,12 @@ jiushutech-dingtalk-login:
       type_redirect: Redirect Login
       status_success: Success
       status_failed: Failed
+
+    users:
+      bind_progress: "DingTalk Binding Progress: "
+      dingtalk_column: DingTalk
+      bound: DingTalk Bound
+      not_bound: DingTalk Not Bound
 
   forum:
     login:
